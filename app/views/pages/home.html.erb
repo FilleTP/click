@@ -1,2 +1,16 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+  <div class="last-proposals-container">
+
+    <h2 style="border-bottom: 1px solid blue;">Last Quotes</h2>
+    <% @proposals.each do |proposal|%>
+      <div class="last-proposals-div" data-behavior="clickable-div" data-url="<%= proposal_path(proposal) %>">
+        <ul class="last-proposals">
+          <li><%= proposal.customer.name %></li>
+          <li><%= proposal.name %></li>
+          <li><%= proposal.date %></li>
+          <li><%= proposal.due_date %></li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>

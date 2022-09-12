@@ -1,0 +1,12 @@
+<ul>
+  <li><%= @customer.name %></li>
+  <li><%= @customer.code %></li>
+  <li><%= @customer.email %></li>
+  <li><%= @customer.mobile %></li>
+  <li><%= @customer.phone %></li>
+</ul>
+
+
+<%= link_to 'detete this customer', customer_path(@customer), method: :delete, class: 'btn btn-cancel', data: { confirm: 'Are you sure you want to delete this customer?' } %>
+<%= link_to 'update this customer', edit_customer_path(@customer) %>
+<%= link_to "Home", customers_path %>

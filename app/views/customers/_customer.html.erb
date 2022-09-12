@@ -1,0 +1,17 @@
+<tr>
+  <td>
+    <%= customer.id %>
+  </td>
+  <td>
+    <%= customer.created_at %>
+  </td>
+  <td>
+    <%= customer.name %>
+  </td>
+  <td>
+    <%= customer.proposals.count%>
+  </td>
+  <td>
+    <%= link_to "View", customer_path(customer), class: "btn-flat" %>
+  </td>
+</tr>
