@@ -1,0 +1,27 @@
+table {
+  margin-top: 100px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+tr {
+  display: flex;
+  width: 100%;
+}
+
+th {
+  color: rgb(76, 124, 202);
+  font-size: large;
+  width: 20%;
+}
+
+td {
+  border-bottom: 1px solid rgba(178, 178, 178, 0.6);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 100%;
+}
+
+.table-h1 {
+  color: rgb(76, 124, 202);
+}

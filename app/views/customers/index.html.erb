@@ -1,0 +1,24 @@
+<table class="table">
+  <thead align="left">
+    <tr>
+      <th>
+        ID
+      </th>
+      <th>
+        <%= link_to "Created at", (params[:order_by_date].nil? ? customers_path(order_by_date: "1") : customers_path(order_by_date: nil))%>
+      </th>
+      <th>
+        <%= link_to "Name", (params[:order_by_name].nil? ? customers_path(order_by_name: "1") : customers_path(order_by_name: nil))%>
+      </th>
+      <th>
+        <%= link_to "Proposals Nr", (params[:order_by_proposal].nil? || params[:order_by_proposal] == "0" ? customers_path(order_by_proposal: "1") : customers_path(order_by_proposal: "0"))%>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  <%=  render @customers%>
+  </tbody>
+</table>
+
+
+<%= link_to "Add Customer", new_customer_path %>
