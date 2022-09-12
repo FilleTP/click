@@ -1,7 +1,7 @@
 <div class="container">
   <div class="last-proposals-container">
 
-    <h2 style="border-bottom: 1px solid blue;">Last Quotes</h2>
+    <h2 style="border-bottom: 1px solid blue;">Lasts Quotes</h2>
     <% @proposals.each do |proposal|%>
       <div class="last-proposals-div" data-behavior="clickable-div" data-url="<%= proposal_path(proposal) %>">
         <ul class="last-proposals">
