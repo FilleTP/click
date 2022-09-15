@@ -1,0 +1,40 @@
+<div class="container">
+  <h1 class="table-h1">Proposals</h1>
+  <div id="search-proposal-container">
+    <div>
+      <%= form_tag proposals_path, method: :get, class:"search-bar" do %>
+      <%= text_field_tag :query,
+        params[:query],
+        class: "maxi-form-control-home",
+        placeholder: "Search Proposal"
+      %>
+      <%= submit_tag "Search", class: "btn-flat" %>
+    </div>
+    <%= link_to "Create Proposal", new_proposal_path, class: 'btn btn-flat' %>
+  </div>
+
+  <% end %>
+			<table class="table">
+				<thead align="left">
+					<tr>
+						<th>
+							ID
+						</th>
+						<th>
+              <%= link_to "Created at", (params[:order_by_date].nil? ? proposals_path(order_by_date: "1") : proposals_path(order_by_date: nil))%>
+						</th>
+						<th>
+					    <%= link_to "Name", (params[:order_by_name].nil? ? proposals_path(order_by_name: "1") : proposals_path(order_by_name: nil))%>
+						</th>
+						<th>
+						  <%= link_to "Customer", (params[:order_by_customer].nil? ? proposals_path(order_by_customer: "1") : proposals_path(order_by_customer: nil))%>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+        <%=  render @proposals%>
+				</tbody>
+			</table>
+
+
+</div>

@@ -1,0 +1,17 @@
+<tr>
+  <td>
+    <%= proposal.id %>
+  </td>
+  <td>
+    <%= proposal.created_at %>
+  </td>
+  <td>
+    <%= proposal.name %>
+  </td>
+  <td>
+    <%= proposal.customer.name%>
+  </td>
+  <td>
+    <%= link_to "View", proposal_path(proposal), class: "btn-flat" %>
+  </td>
+</tr>

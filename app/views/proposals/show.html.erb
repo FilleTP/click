@@ -1,0 +1,148 @@
+<div class="container">
+
+  <h1><%= @proposal.name %></h1>
+  <h2>Customer: <%= @proposal.customer.name %></h2>
+
+  <ul>
+    <li><%= @proposal.name %></li>
+    <li><%= @proposal.date %></li>
+    <li><%= @proposal.due_date %></li>
+    <li><%= @proposal.customer_id %></li>
+  </ul>
+
+  <%# <% if @proposal.photos.attached? %>
+  <%# <%= cl_image_tag @proposal.photos.key, height: 1000, width: 1200%>
+  <%# <% end %>
+
+  <% if @proposal.photos.attached? %>
+    <% @proposal.photos.each do |photo|%>
+    <div style="margin: 80px;">
+      <%= cl_image_tag photo.key, height: 400, width: 600%>
+    </div>
+    <% end %>
+  <% end %>
+
+  <canvas id="canvas" style="height:200px;width:300px;display:none;"></canvas>
+  <div class="bottom-buttons">
+    <%= link_to "Home", proposals_path, class: "btn btn-back" %>
+    <div>
+      <div id="update-form-div" style="display:none;">
+        <%= simple_form_for @proposal  do |f| %>
+          <%= f.hidden_field :url, as: :text %>
+          <%= f.submit "Go to PDF", class: 'btn btn-flat' %>
+        <% end %>
+      </div>
+      <a href="javascript:void(0)" id="loading-button" class="btn btn-flat">Loading...</a>
+    </div>
+  </div>
+
+  <span id="jan-data" style="display:none;position:absolute;left:-999em;"><%=23%></span>
+  <span id="feb-data" style="display:none;position:absolute;left:-999em;"><%=11%></span>
+  <span id="mar-data" style="display:none;position:absolute;left:-999em;"><%=12%></span>
+  <span id="apr-data" style="display:none;position:absolute;left:-999em;"><%=2%></span>
+  <span id="may-data" style="display:none;position:absolute;left:-999em;"><%=4%></span>
+  <span id="jun-data" style="display:none;position:absolute;left:-999em;"><%=6%></span>
+  <span id="jul-data" style="display:none;position:absolute;left:-999em;"><%=7%></span>
+  <span id="aug-data" style="display:none;position:absolute;left:-999em;"><%=3%></span>
+  <span id="sep-data" style="display:none;position:absolute;left:-999em;"><%=8%></span>
+  <span id="oct-data" style="display:none;position:absolute;left:-999em;"><%=9%></span>
+  <span id="nov-data" style="display:none;position:absolute;left:-999em;"><%=2%></span>
+  <span id="dec-data" style="display:none;position:absolute;left:-999em;"><%=2%></span>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  const updateFormDiv = document.querySelector("#update-form-div");
+  const loadingButton = document.querySelector("#loading-button");
+  setTimeout(() => {
+    this.document.querySelector("#loading-button").style.display = "none";
+    this.document.querySelector("#update-form-div").style.display = "block";
+  }, 3000);
+// CHART Method - taking data points from pvgis
+// Draw chart
+// Save chart as base64
+// Add base64 image code to hidden field in proposal update form
+// Send to Proposal Controller with submit, redirect to PDF
+
+const janData = document.getElementById("jan-data").innerText
+const febData = document.getElementById("feb-data").innerText
+const marData = document.getElementById("mar-data").innerText
+const aprData = document.getElementById("apr-data").innerText
+const mayData = document.getElementById("may-data").innerText
+const junData = document.getElementById("jun-data").innerText
+const julData = document.getElementById("jul-data").innerText
+const augData = document.getElementById("aug-data").innerText
+const sepData = document.getElementById("sep-data").innerText
+const octData = document.getElementById("oct-data").innerText
+const novData = document.getElementById("nov-data").innerText
+const decData = document.getElementById("dec-data").innerText
+
+var lineChartData = {
+  labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"],
+  datasets: [
+    {
+      backgroundColor: "rgba(86, 101, 196,0.8)",
+      dataPointWidth: 20,
+      data: [janData, febData, marData, aprData, mayData, junData, julData, augData, sepData, octData, novData, decData],
+      bezierCurve: false
+    }
+  ]
+
+}
+
+function done() {
+  var url = myLine.toBase64Image();
+  document.getElementById("proposal_url").value = url;
+}
+var options = {
+  maintainAspectRatio: false,
+    responsive:true,
+    bezierCurve: false,
+    animation: {
+      onComplete: done
+    },
+    scales: {
+              xAxes: [{
+                  barThickness: 24,  // number (pixels) or 'flex'
+                  maxBarThickness: 24 // number (pixels)
+              }]
+          }
+};
+
+var chart = document.querySelector("canvas").getContext("2d");
+
+var myLine = new Chart(document.getElementById("canvas").getContext("2d"), {
+  data: lineChartData,
+  type: "bar",
+  options: options
+});
+
+Chart.defaults.global.defaultFontSize = 20;
+// chart.canvas.parentNode.style.height = '800px';
+
+</script>
