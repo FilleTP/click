@@ -1,6 +1,6 @@
-class CreatePvgisdata < ActiveRecord::Migration[6.1]
+class CreateConsumptions < ActiveRecord::Migration[6.1]
   def change
-    create_table :pvgisdata do |t|
+    create_table :consumptions do |t|
       t.float :lat
       t.float :lon
       t.float :peakpower

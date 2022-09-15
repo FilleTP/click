@@ -40,14 +40,14 @@
       </label>
     </div>
     <div class="pvgis-info">
-      <%= f.simple_fields_for @proposal.pvgisdata.new do |pvgidata| %>
+      <%= f.simple_fields_for @proposal.consumptions.new do |consumption| %>
       <% end %>
-      <%= link_to_add_association '+', f, :pvgisdata, html: { class: "add-pvgis"} %>
+      <%= link_to_add_association '+', f, :consumptions, html: { class: "add-pvgis"} %>
     </div>
     <label class="btn btn-flat">
       Upload Location Image
       <span style="display:none;">
-        <%= f.file_field :image, required: true, multiple: true, name: 'picture' %>
+        <%= f.file_field :building_photo, name: 'picture' %>
       </span>
     </label>
   </div>
