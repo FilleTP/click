@@ -1,0 +1,60 @@
+<h3>Create a new Proposal</h3>
+
+<div class="container">
+  <div class="hello">
+    <%= simple_form_for @proposal, html: { class: "proposal-form" } do |f| %>
+    <div class="proposal-info">
+      <label>
+        Name
+        <%= f.input :name, label: false%>
+      </label>
+      <label>
+        Due Date
+        <%= f.input :due_date, label: false %>
+      </label>
+      <label>
+        Choose Customer
+        <%= f.association :customer, label: false, id: 'association'%>
+      </label>
+    </div>
+    <div class="proposal-address">
+      <label>
+        Address
+        <%= f.input :shipping_address, label: false %>
+      </label>
+      <label>
+        Postal Code
+        <%= f.input :postal_code, label: false %>
+      </label>
+      <label>
+        City
+        <%= f.input :shipping_city, label: false %>
+      </label>
+      <label>
+        Province
+        <%= f.input :shipping_province, label: false %>
+      </label>
+      <label>
+        Country
+        <%= f.input :shipping_country, :as => :text, label: false %>
+      </label>
+    </div>
+    <div class="pvgis-info">
+      <%= f.simple_fields_for @proposal.pvgisdata.new do |pvgidata| %>
+      <% end %>
+      <%= link_to_add_association '+', f, :pvgisdata, html: { class: "add-pvgis"} %>
+    </div>
+    <label class="btn btn-flat">
+      Upload Location Image
+      <span style="display:none;">
+        <%= f.file_field :image, required: true, multiple: true, name: 'picture' %>
+      </span>
+    </label>
+  </div>
+  <div class="proposal-create-button">
+    <%= link_to 'Back', proposals_path, class: 'btn btn-back' %>
+    <%= f.button :submit, class: 'btn btn-flat' %>
+    <% end %>
+  </div>
+
+</div>
