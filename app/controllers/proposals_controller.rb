@@ -18,6 +18,28 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.new
   end
 
+  def create
+    @proposal = Proposal.new proposal_params
+    @proposal.contact_name = @proposal.customer.name
+    @proposal.save!
+
+    # if params[:proposal][:image].present?
+    #   params[:proposal][:image].each do |image|
+    #     @proposal.photos.attach(io: image, content_type: 'image/jpeg', filename: 'location.jpeg')
+    #   end
+    # end
+
+    string_creation
+
+    if @proposal.consumptions.count == @proposal.pvgis.count
+      # send_propsals(@proposal)
+      redirect_to proposal_path(@proposal)
+    else
+      redirect_to new_proposal_path
+      flash[:alert] = 'Sorry'
+    end
+  end
+
   def show
     @proposal = Proposal.find(params[:id])
     @pvgis = @proposal.pvgis
@@ -50,41 +72,20 @@ class ProposalsController < ApplicationController
     redirect_to "#{full_url_for}.pdf"
   end
 
-  def create
-    @proposal = Proposal.new proposal_params
-    @proposal.date = Time.now.to_i
-    @proposal.contact_name = @proposal.customer.name
-    @proposal.save!
 
-    if params[:proposal][:image].present?
-      params[:proposal][:image].each do |image|
-        @proposal.photos.attach(io: image, content_type: 'image/jpeg', filename: 'location.jpeg')
-      end
-    end
-
-    string_creation
-
-    if @proposal.pvgisdatas.count == @proposal.pvgis.count
-      # send_propsals(@proposal)
-      redirect_to proposal_path(@proposal)
-    else
-      redirect_to new_proposal_path
-      flash[:alert] = 'Sorry'
-    end
-  end
 
   private
 
   def proposal_params
-    params.require(:proposal).permit(:name, :shipping_address, :postal_code, :shipping_city, :shipping_province, :shipping_country, :date, :due_date, :url, :customer_id,  photos: [], pvgisdatas_attributes: [:id, :lat, :lon, :angle, :loss, :slope, :azimuth, :peakpower, :_destroy])
+    params.require(:proposal).permit(:name, :shipping_address, :postal_code, :shipping_city, :shipping_province, :shipping_country, :date, :due_date, :url, :customer_id,  photos: [], consumptions_attributes: [:id, :lat, :lon, :angle, :loss, :slope, :azimuth, :peakpower, :_destroy])
   end
 
-  def pvgisdata_params
-    params.require(:proposal).permit(params["proposal"]["pvgisdata"])
-  end
+  # def pvgisdata_params
+  #   params.require(:proposal).permit(params["proposal"]["pvgisdata"])
+  # end
 
   def string_creation
-    @proposal.pvgisdatas.each do |pvgi|
+    @proposal.consumptions.each do |pvgi|
 
       response_string = PvgisApi.new(pvgi, @proposal).call_pvgis
       obj = JSON.parse(response_string.body)

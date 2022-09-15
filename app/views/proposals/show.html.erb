@@ -14,15 +14,13 @@
   <%# <%= cl_image_tag @proposal.photos.key, height: 1000, width: 1200%>
   <%# <% end %>
 
-  <% if @proposal.photos.attached? %>
-    <% @proposal.photos.each do |photo|%>
+  <% if @proposal.building_photo.attached? %>
     <div style="margin: 80px;">
       <%= cl_image_tag photo.key, height: 400, width: 600%>
     </div>
-    <% end %>
   <% end %>
 
-  <canvas id="canvas" style="height:200px;width:300px;display:none;"></canvas>
+  <canvas id="canvas" style="height:200px;width:300px;"></canvas>
   <div class="bottom-buttons">
     <%= link_to "Home", proposals_path, class: "btn btn-back" %>
     <div>
