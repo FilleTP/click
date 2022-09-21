@@ -1,8 +1,7 @@
 <h3>Create a new Proposal</h3>
 
 <div class="container">
-  <div class="hello">
-    <%= simple_form_for @proposal, html: { class: "proposal-form" } do |f| %>
+  <%= simple_form_for @proposal, html: { class: "proposal-form" } do |f| %>
     <div class="proposal-info">
       <label>
         Name
@@ -47,14 +46,12 @@
     <label class="btn btn-flat">
       Upload Location Image
       <span style="display:none;">
-        <%= f.file_field :building_photo, name: 'picture' %>
+        <%= f.file_field :building_photo %>
       </span>
     </label>
-  </div>
-  <div class="proposal-create-button">
-    <%= link_to 'Back', proposals_path, class: 'btn btn-back' %>
-    <%= f.button :submit, class: 'btn btn-flat' %>
+    <div class="proposal-create-button">
+      <%= link_to 'Back', proposals_path, class: 'btn btn-back' %>
+      <%= f.button :submit, class: 'btn btn-flat', style: "height:auto;"%>
+    </div>
     <% end %>
-  </div>
-
 </div>
