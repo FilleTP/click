@@ -1,0 +1,247 @@
+body {
+  font-family: Helvetica, sans-serif;
+  text-rendering: geometricPrecision;
+}
+
+.blue-bar {
+  height: 70px;
+  width: 700px;
+  margin-top: 70px;
+  margin-bottom: 20px;
+  background-color: rgb(76, 124, 202)
+}
+
+.blue-bar-header {
+  position: absolute;
+  left: 40px;
+  font-family: 'Helvetica', Sans-Serif;
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+
+.client-data {
+  display: -webkit-box;
+  font-family: Helvetica, sans-serif;
+  font-size: 24px;
+}
+
+.second-column-client-data {
+  position: absolute;
+  left: 500px;
+}
+
+.row-border-bottom {
+  height: 1px;
+  width: 1200px;
+  background-color: rgb(184, 184, 184);
+}
+
+.client-data-table {
+  margin-left: 100px;
+}
+
+#installation-cards-div {
+  display: -webkit-box;
+  margin-left: 100px;
+}
+
+.installation-card {
+  margin-top: 70px;
+  margin-bottom: 70x;
+  height: 400px;
+  width: 270px;
+  border: solid 3px rgb(76, 124, 202);
+}
+
+.installation-card:nth-child(2) {
+  margin-left: 30px;
+}
+
+.installation-card:nth-child(3) {
+  margin-left: 30px;
+}
+
+.installation-card:nth-child(4) {
+  margin-left: 30px;
+}
+
+.installation-card-image {
+  height: 200px;
+  width: 150px;
+  margin-top: 40px;
+  margin-left: 50px;
+}
+
+.card-content {
+  margin-top: 30px;
+  margin-left: 80px;
+
+}
+
+.column-location-data-1 {
+  position: absolute;
+  left: 300px;
+}
+
+.column-location-data-2 {
+  position: absolute;
+  left: 550px;
+}
+
+.column-location-data-3 {
+  position: absolute;
+  left: 750px;
+}
+
+.column-location-data-4 {
+  position: absolute;
+  left: 1000px;
+}
+
+.column-location-data-5 {
+  position: absolute;
+  left: 1200px;
+}
+
+#location-information {
+  display: -webkit-box;
+}
+
+#location-photo {
+  margin-left: 100px;
+}
+
+#location-text {
+  width: 600px;
+}
+
+#graph-content {
+  display: -webkit-box;
+  margin-left: 100px;
+}
+
+#graph {
+  margin-top: 70px;
+  margin-left: 50px;
+}
+
+#graph-card {
+  margin-top: 70px;
+  margin-bottom: 70x;
+  height: 400px;
+  width: 270px;
+  background-color: rgb(76, 124, 202);
+}
+
+#graph-card-content {
+  margin-top: 30px;
+  margin-left: 80px;
+  font-family: 'Helvetica', Sans-Serif;
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+}
+
+.column-production-data-1 {
+  position: absolute;
+  left: 300px;
+}
+
+.column-production-data-2 {
+  position: absolute;
+  left: 380px;
+}
+
+.column-production-data-3 {
+  position: absolute;
+  left: 460px;
+}
+
+.column-production-data-4 {
+  position: absolute;
+  left: 540px;
+}
+
+.column-production-data-5 {
+  position: absolute;
+  left: 620px;
+}
+
+.column-production-data-6 {
+  position: absolute;
+  left: 700px;
+}
+
+.column-production-data-7 {
+  position: absolute;
+  left: 780px;
+}
+
+.column-production-data-8 {
+  position: absolute;
+  left: 860px;
+}
+
+.column-production-data-9 {
+  position: absolute;
+  left: 940px;
+}
+
+.column-production-data-10 {
+  position: absolute;
+  left: 1020px;
+}
+
+.column-production-data-11 {
+  position: absolute;
+  left: 1100px;
+}
+
+.column-production-data-12 {
+  position: absolute;
+  left: 1180px;
+}
+
+.installation-card-numbers {
+  margin-top: 70px;
+  margin-bottom: 70x;
+  height: 425px;
+  width: 270px;
+  background-color: rgb(76, 124, 202);
+}
+
+.installation-card-numbers:nth-child(2) {
+  margin-left: 34px;
+}
+
+.installation-card-numbers:nth-child(3) {
+  margin-left: 34px;
+}
+
+.installation-card-numbers:nth-child(4) {
+  margin-left: 34px;
+}
+
+.card-content-numbers {
+  font-family: 'Helvetica', Sans-Serif;
+  font-size: xx-large;
+  font-weight: bold;
+  color: white;
+}
+
+.card-content-numbers-text {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-family: 'Helvetica', Sans-Serif;
+  font-size: 18px;
+  color: white;
+}
+
+// .card-content-numbers-text:nth-child(1) {
+//   font-weight: bold;
+//   font-size: 26px;
+//   margin-right: 50px;
+// }

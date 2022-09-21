@@ -1,0 +1,266 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+
+
+    <%= wicked_pdf_javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+
+  <%= wicked_pdf_javascript_pack_tag %>
+  <%= wicked_pdf_stylesheet_link_tag 'pdf', media: 'all' %>
+
+
+  </head>
+  <body onload='number_pages'>
+    <div id="header">
+      <%= image_tag wicked_pdf_asset_base64('logo.png') %>
+      <div style="margin-left:0px;position; absolute;">
+      <%= image_tag wicked_pdf_asset_base64('solar-panels.jpeg') %>
+      </div>
+      <p style='page-break-after:always;'></p>
+
+
+    </div>
+    <div id="content">
+      <div class="address-click" style="margin: 30px; font-weight: bold;font-family: 'Helvetica', Sans-Serif;">
+        <p>Gran Via de les Corts Catalanes 15,</p>
+        <p>08173 Sant Cugat del Vallès</p>
+        <p>info@clickenergy.eu</p>
+        <p>722 489 029</p>
+      </div>
+
+      <div class="blue-bar">
+        <h2 class="blue-bar-header">Dades CLIENT</h2>
+      </div>
+      <div class="client-data-table">
+        <div class="client-data">
+          <p>Client</p>
+          <p class="second-column-client-data"><%= @proposal.customer.name %></p>
+        </div>
+        <div class="row-border-bottom"></div>
+        <div class="client-data">
+          <p>NIF</p>
+          <p class="second-column-client-data">DATOS</p>
+        </div>
+        <div class="row-border-bottom"></div>
+        <div class="client-data">
+          <p>Direcció</p>
+          <p class="second-column-client-data">DATOS</p>
+        </div>
+        <div class="row-border-bottom"></div>
+        <div class="client-data">
+          <p>Tel. Contacte</p>
+          <p class="second-column-client-data"><%= @proposal.customer.phone %></p>
+        </div>
+        <div class="row-border-bottom"></div>
+        <div class="client-data">
+          <p>E-mail</p>
+          <p class="second-column-client-data"><%= @proposal.customer.email %></p>
+        </div>
+        <div class="row-border-bottom"></div>
+        <div class="client-data">
+          <p>Consum</p>
+          <p class="second-column-client-data">DATOS</p>
+        </div>
+        <div class="row-border-bottom"></div>
+      </div>
+
+
+      <div id="installation-cards-div">
+        <div class="installation-card">
+          <div class="card-content-img">
+            <%= image_tag wicked_pdf_asset_base64('flash.png'), class: "installation-card-image"%>
+          </div>
+          <div class="card-content">
+            <p>Potencia</p>
+            <p>6,75 kWp</p>
+          </div>
+        </div>
+        <div class="installation-card">
+          <div class="card-content-img">
+            <%= image_tag wicked_pdf_asset_base64('flash.png'), class: "installation-card-image"%>
+          </div>
+          <div class="card-content">
+            <p>Nr Panels</p>
+            <p>Potencia</p>
+          </div>
+        </div>
+        <div class="installation-card">
+          <div class="card-content-img">
+            <%= image_tag wicked_pdf_asset_base64('flash.png'), class: "installation-card-image"%>
+          </div>
+          <div class="card-content">
+            <p>Estalvi a la factura*</p>
+            <p>2.143€/any</p>
+            <p>+ bonificació IBI</p>
+          </div>
+        </div>
+        <div class="installation-card">
+          <div class="card-content-img">
+            <%= image_tag wicked_pdf_asset_base64('flash.png'), class: "installation-card-image"%>
+          </div>
+          <div class="card-content">
+            <p>Equival a</p>
+            <p>3,8 Tn CO2</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="blue-bar">
+        <h2 class="blue-bar-header">Localització</h2>
+      </div>
+
+
+      <div id="location-information">
+        <div id="location-text">
+          <p>Direcció: Urb La Solana Gol Parcel·la-S/N 27-C-C Apt 17539 Bolvir</p>
+          <p>Tipus de teulada: Teulada pissarra</p>
+        </div>
+        <%=cl_image_tag @proposal.building_photo.key, height: 400, width: 600, id: "location-photo"%>
+      </div>
+
+      <div class="client-data-table">
+        <div class="client-data">
+          <p>String</p>
+          <p class="column-location-data-1">Azimut</p>
+          <p class="column-location-data-2">Inclinació</p>
+          <p class="column-location-data-3">Estructura</p>
+          <p class="column-location-data-4">N Mòduls</p>
+          <p class="column-location-data-5">Potencia</p>
+        </div>
+        <div class="row-border-bottom"></div>
+        <div class="client-data">
+          <p>1</p>
+          <p class="column-location-data-1">Sud-est (-66o)</p>
+          <p class="column-location-data-2">20o</p>
+          <p class="column-location-data-3">Alumini coplanar</p>
+          <p class="column-location-data-4">6</p>
+          <p class="column-location-data-5">2250 Wp</p>
+        </div>
+        <div class="row-border-bottom"></div>
+        <div class="client-data">
+          <p>1</p>
+          <p class="column-location-data-1">Sud-est (-66o)</p>
+          <p class="column-location-data-2">20o</p>
+          <p class="column-location-data-3">Alumini coplanar</p>
+          <p class="column-location-data-4">6</p>
+          <p class="column-location-data-5">2250 Wp</p>
+        </div>
+        <div class="row-border-bottom"></div>
+      </div>
+      <p style='page-break-after:always;'></p>
+      <div id="graph-content">
+        <div id="graph-card">
+          <div class="card-content-img">
+            <%= image_tag wicked_pdf_asset_base64('flash.png'), class: "installation-card-image"%>
+          </div>
+          <div id="graph-card-content">
+            <p>Producció anual</p>
+            <p>9912 kWh</p>
+          </div>
+        </div>
+        <%=cl_image_tag @proposal.graph_photo.key, height: 500, width: 800, id: "graph"%>
+      </div>
+
+       <div class="client-data-table">
+        <div class="client-data">
+          <p>Mes</p>
+          <p class="column-production-data-1">Gen</p>
+          <p class="column-production-data-2">Feb</p>
+          <p class="column-production-data-3">Mar</p>
+          <p class="column-production-data-4">Abr</p>
+          <p class="column-production-data-5">Mai</p>
+          <p class="column-production-data-6">Jun</p>
+          <p class="column-production-data-7">Jul</p>
+          <p class="column-production-data-8">Ago</p>
+          <p class="column-production-data-9">Sep</p>
+          <p class="column-production-data-10">Oct</p>
+          <p class="column-production-data-11">Nov</p>
+          <p class="column-production-data-12">Des</p>
+        </div>
+        <div class="row-border-bottom"></div>
+        <div class="client-data">
+          <p>Producció<br>mensual</p>
+          <p class="column-production-data-1">420</p>
+          <p class="column-production-data-2">420</p>
+          <p class="column-production-data-3">420</p>
+          <p class="column-production-data-4">420</p>
+          <p class="column-production-data-5">420</p>
+          <p class="column-production-data-6">420</p>
+          <p class="column-production-data-7">420</p>
+          <p class="column-production-data-8">420</p>
+          <p class="column-production-data-9">420</p>
+          <p class="column-production-data-10">420</p>
+          <p class="column-production-data-11">1034</p>
+          <p class="column-production-data-12">1024</p>
+        </div>
+        <div class="row-border-bottom"></div>
+        <div class="client-data">
+          <p>Producció<br>diária</p>
+          <p class="column-production-data-1">14,5</p>
+          <p class="column-production-data-2">14,5</p>
+          <p class="column-production-data-3">14,5</p>
+          <p class="column-production-data-4">14,5</p>
+          <p class="column-production-data-5">14,5</p>
+          <p class="column-production-data-6">14,5</p>
+          <p class="column-production-data-7">14,5</p>
+          <p class="column-production-data-8">14,5</p>
+          <p class="column-production-data-9">14,5</p>
+          <p class="column-production-data-10">18,2</p>
+          <p class="column-production-data-11">12,3</p>
+          <p class="column-production-data-12">12,3</p>
+        </div>
+        <div class="row-border-bottom"></div>
+      </div>
+
+
+      <h1>Com farem la teva instal·lació?</h1>
+      <p>Ens encarreguem de tot! A partir d’ara els nostres experts s’encarregaran de executar totes les fases del projecte. Estaràs informat al moment de tots els passos per a que no t’hagis de preocupar de res.</p>
+      <p>Els passos per a poder gaudir d’energia gratuïta i nets són els següents:</p>
+
+       <div id="installation-cards-div">
+        <div class="installation-card-numbers">
+          <div class="card-content-numbers">
+            <%= image_tag wicked_pdf_asset_base64('one.png'), class: "installation-card-image"%>
+          </div>
+          <div class="card-content-numbers-text">
+            <p><strong>Visita tècnica</strong></p>
+            <p>Un cop reservada al instal·lació en 24-72 hores un tècnic vindrà a realitzar visita tècnica.</p>
+          </div>
+        </div>
+          <div class="installation-card-numbers">
+          <div class="card-content-numbers">
+            <%= image_tag wicked_pdf_asset_base64('one.png'), class: "installation-card-image"%>
+          </div>
+          <div class="card-content-numbers-text">
+            <p><strong>Llicència d’obra i compra de material</strong></p>
+            <p>Preparem tota la documentació tècnica necessària per a la llicència d’obra. </p>
+          </div>
+        </div>
+          <div class="installation-card-numbers">
+          <div class="card-content-numbers">
+            <%= image_tag wicked_pdf_asset_base64('one.png'), class: "installation-card-image"%>
+          </div>
+          <div class="card-content-numbers-text">
+            <p><strong>Instal·lació</strong></p>
+            <p>Un cop rebuda la llicència d’obra, pot trigar entre un i dos mesos, en menys d’una setmana tens la instal·lació feta i generaràs energia gratuïta i verda</p>
+          </div>
+        </div>
+          <div class="installation-card-numbers">
+          <div class="card-content-numbers">
+            <%= image_tag wicked_pdf_asset_base64('one.png'), class: "installation-card-image"%>
+          </div>
+          <div class="card-content-numbers-text">
+            <p><strong>Legalització</strong></p>
+            <p>Feta la instal·lació serà necessari legalitzar-la i registrar-la per a poder rebre compensació pels teus excedents</p>
+          </div>
+        </div>
+      </div>
+      <h1>Que inclou la teva instal·lació?</h1>
+      <p>Aquest pressupost inclou el següent material:</p>
+      <p><strong>Panells solars</strong></p>
+      <p>Proposem dos opcions:</p>
+      <%= yield %>
+    </div>
+  </body>
+</html>

@@ -124,6 +124,8 @@
   border-radius: 4px;
   text-decoration: none;
   font-size: 16px;
+  height: auto;
+
 }
 
 .btn-back {
@@ -135,6 +137,8 @@
   border-radius: 4px;
   font-size: 16px;
 }
+
+
 
 .btn-back:hover {
   cursor: pointer;
@@ -170,4 +174,13 @@
 #search-proposal-container {
   display: flex;
   justify-content: space-between;
+}
+
+.proposal-form input {
+  height: auto;
+}
+
+.proposal-form select {
+  height: auto;
+  width: auto;
 }

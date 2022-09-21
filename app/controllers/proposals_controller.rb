@@ -1,3 +1,7 @@
+require 'uri'
+require 'net/http'
+require 'openssl'
+
 class ProposalsController < ApplicationController
 
   def index
@@ -21,6 +25,7 @@ class ProposalsController < ApplicationController
   def create
     @proposal = Proposal.new proposal_params
     @proposal.contact_name = @proposal.customer.name
+    @proposal.date = Date.today
     @proposal.save!
 
     # if params[:proposal][:image].present?
@@ -32,7 +37,7 @@ class ProposalsController < ApplicationController
     string_creation
 
     if @proposal.consumptions.count == @proposal.pvgis.count
-      # send_propsals(@proposal)
+      send_propsals(@proposal)
       redirect_to proposal_path(@proposal)
     else
       redirect_to new_proposal_path
@@ -56,12 +61,9 @@ class ProposalsController < ApplicationController
     image_64 = params[:proposal][:url]
     string = image_64.split(",")[1]
     @proposal = Proposal.find(params[:id])
-    @proposal.photos.each do |photo|
-      next if photo.filename == "location.jpeg"
-      photo.destroy
-    end
+    @proposal.graph_photo.destroy if @proposal.graph_photo.attached?
 
-    @proposal.photos.attach(
+    @proposal.graph_photo.attach(
       {
               io: StringIO.new(Base64.decode64(string)),
               content_type: 'image/jpeg',
@@ -77,7 +79,7 @@ class ProposalsController < ApplicationController
   private
 
   def proposal_params
-    params.require(:proposal).permit(:name, :shipping_address, :postal_code, :shipping_city, :shipping_province, :shipping_country, :date, :due_date, :url, :customer_id,  photos: [], consumptions_attributes: [:id, :lat, :lon, :angle, :loss, :slope, :azimuth, :peakpower, :_destroy])
+    params.require(:proposal).permit(:name, :shipping_address, :postal_code, :shipping_city, :shipping_province, :shipping_country, :date, :due_date, :url, :customer_id,  :building_photo, consumptions_attributes: [:id, :lat, :lon, :angle, :loss, :slope, :azimuth, :peakpower, :_destroy])
   end
 
   # def pvgisdata_params
@@ -126,10 +128,10 @@ class ProposalsController < ApplicationController
     http.use_ssl = true
 
     request = Net::HTTP::Post.new(url)
-    request["Accept"] = 'application/json'
-    request["Content-Type"] = 'application/json'
+    request["accept"] = 'application/json'
+    request["content-type"] = 'application/json'
     request["key"] = ENV["HOLDED_API"]
-    request.body = { contactName: proposal.customer.name, date: proposal.date, name: proposal.name}.to_json
+    request.body = { contactName: proposal.customer.name, date: Time.now.to_i, name: proposal.name}.to_json
 
     response = http.request(request)
 
