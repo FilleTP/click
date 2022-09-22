@@ -13,7 +13,7 @@ class Proposal < ApplicationRecord
 
   include PgSearch::Model
     pg_search_scope :global_search,
-    against: [ :contact_name ],
+    against: [ :contact_name, :quote_num ],
     associated_against: {
       customer: :name
     },

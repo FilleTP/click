@@ -1,6 +1,6 @@
 <tr>
   <td>
-    <%= proposal.id %>
+    <%= proposal.quote_num %>
   </td>
   <td>
     <%= proposal.created_at %>
@@ -11,7 +11,7 @@
   <td>
     <%= proposal.customer.name%>
   </td>
-  <td>
+  <td style="display:flex;justify-content:flex-end;">
     <%= link_to "View", proposal_path(proposal), class: "btn-flat" %>
   </td>
 </tr>

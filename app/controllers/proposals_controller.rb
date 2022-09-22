@@ -47,6 +47,7 @@ class ProposalsController < ApplicationController
 
   def show
     @proposal = Proposal.find(params[:id])
+
     @pvgis = @proposal.pvgis
     respond_to do |format|
       format.html
@@ -131,9 +132,10 @@ class ProposalsController < ApplicationController
     request["accept"] = 'application/json'
     request["content-type"] = 'application/json'
     request["key"] = ENV["HOLDED_API"]
-    request.body = { contactName: proposal.customer.name, date: Time.now.to_i, name: proposal.name}.to_json
+    request.body = { dueDate: proposal.due_date.to_time.to_i, contactName: proposal.customer.name, date: Time.now.to_i, name: proposal.name}.to_json
 
     response = http.request(request)
+    proposal.update(quote_num: JSON.parse(response.read_body)["invoiceNum"])
 
   end
 end
