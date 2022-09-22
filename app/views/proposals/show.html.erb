@@ -1,25 +1,28 @@
 <div class="container">
-
-  <h1><%= @proposal.name %></h1>
-  <h2>Customer: <%= @proposal.customer.name %></h2>
-
-  <ul>
-    <li><%= @proposal.name %></li>
-    <li><%= @proposal.date %></li>
-    <li><%= @proposal.due_date %></li>
-    <li><%= @proposal.customer_id %></li>
-  </ul>
-
+  <div style="display:flex;justify-content:space-between;">
+    <div>
+      <h1><%= @proposal.name %></h1>
+      <h2>Customer: <%= @proposal.customer.name %></h2>
+    </div>
+    <ul>
+      <li>Date: <%= @proposal.date %></li>
+      <li>Due Date: <%= @proposal.due_date %></li>
+      <li>Quote Number: <%= @proposal.quote_num %></li>
+    </ul>
+  </div>
   <%# <% if @proposal.photos.attached? %>
   <%# <%= cl_image_tag @proposal.photos.key, height: 1000, width: 1200%>
   <%# <% end %>
 
   <% if @proposal.building_photo.attached? %>
-    <div style="margin: 80px;">
-      <%= cl_image_tag @proposal.building_photo.key, height: 400, width: 600%>
+    <div style="margin-bottom:80px;margin-top:80px;display:flex;justify-content:flex-end;">
+      <div>
+        <p>Location Image</p>
+        <%= cl_image_tag @proposal.building_photo.key, height: 400, width: 600%>
+      </div>
     </div>
   <% end %>
-  <canvas id="canvas" style="height:200px;width:300px;"></canvas>
+  <canvas id="canvas" style="height:200px;width:300px;visibility:hidden;position:fixed;right:-999px;"></canvas>
   <div class="bottom-buttons">
     <%= link_to "Home", proposals_path, class: "btn btn-back" %>
     <div>

@@ -18,7 +18,7 @@
 				<thead align="left">
 					<tr>
 						<th>
-							ID
+							Quote Number
 						</th>
 						<th>
               <%= link_to "Created at", (params[:order_by_date].nil? ? proposals_path(order_by_date: "1") : proposals_path(order_by_date: nil))%>
@@ -28,6 +28,8 @@
 						</th>
 						<th>
 						  <%= link_to "Customer", (params[:order_by_customer].nil? ? proposals_path(order_by_customer: "1") : proposals_path(order_by_customer: nil))%>
+						</th>
+            <th>
 						</th>
 					</tr>
 				</thead>
