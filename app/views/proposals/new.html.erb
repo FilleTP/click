@@ -19,23 +19,23 @@
     <div class="proposal-address">
       <label>
         Address
-        <%= f.input :shipping_address, label: false %>
+        <%= f.input :shipping_address, required: true, label: false %>
       </label>
       <label>
         Postal Code
-        <%= f.input :postal_code, label: false %>
+        <%= f.input :postal_code, required: true, label: false %>
       </label>
       <label>
         City
-        <%= f.input :shipping_city, label: false %>
+        <%= f.input :shipping_city, required: true, label: false %>
       </label>
       <label>
         Province
-        <%= f.input :shipping_province, label: false %>
+        <%= f.input :shipping_province, required: true, label: false %>
       </label>
       <label>
         Country
-        <%= f.input :shipping_country, :as => :text, label: false %>
+        <%= f.input :shipping_country, required: true, :as => :text, label: false %>
       </label>
     </div>
     <div class="pvgis-info">
@@ -43,11 +43,11 @@
       <% end %>
       <%= link_to_add_association 'Add String', f, :consumptions %>
     </div>
-    <label class="btn btn-flat">
+    <label>
       Upload Location Image
-      <span style="display:none;">
-        <%= f.file_field :building_photo %>
-      </span>
+      <%# <span style="display:none;"> %>
+        <%= f.file_field :building_photo, required: true %>
+      <%# </span> %>
     </label>
     <div class="proposal-create-button">
       <%= link_to 'Back', proposals_path, class: 'btn btn-back' %>

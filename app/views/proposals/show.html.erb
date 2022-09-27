@@ -17,7 +17,14 @@
   <%# <% end %>
 
   <% if @proposal.building_photo.attached? %>
-    <div style="margin-bottom:80px;margin-top:80px;display:flex;justify-content:flex-end;">
+    <div style="margin-bottom:80px;margin-top:80px;display:flex;justify-content:space-between;">
+      <div>
+        <p> <%= @proposal.shipping_address %></p>
+        <p> <%= @proposal.postal_code %></p>
+        <p> <%= @proposal.shipping_city %></p>
+        <p> <%= @proposal.shipping_country %></p>
+        <p>Latitude: <%= @proposal.consumptions.first.lat %> Longitude: <%= @proposal.consumptions.first.lon %></p>
+      </div>
       <div>
         <p>Location Image</p>
         <%= cl_image_tag @proposal.building_photo.key, height: 400, width: 600%>

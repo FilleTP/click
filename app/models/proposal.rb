@@ -5,7 +5,14 @@ class Proposal < ApplicationRecord
   has_one_attached :graph_photo
   accepts_nested_attributes_for :consumptions, reject_if: :all_blank, allow_destroy: true
   has_many :pvgis, dependent: :destroy
-  # validates :date, presence: true
+  validates :due_date, presence: true
+  validates :name, presence: true
+  validates :shipping_address, presence: true
+  validates :postal_code, presence: true
+  validates :shipping_city, presence: true
+  validates :shipping_province, presence: true
+  validates :shipping_country, presence: true
+  validates :building_photo, presence: true
   scope :by_recently_created, -> { order(created_at: :desc) }
   scope :by_oldest_created, -> { order(created_at: :asc) }
   scope :by_name, -> { order(:name) }

@@ -27,22 +27,23 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.new proposal_params
     @proposal.date = Date.today
     unless @proposal.consumptions.empty?
+      set_coordinates(@proposal)
       if @proposal.save
         string_creation
         if @proposal.consumptions.count == @proposal.pvgis.count
           send_propsals(@proposal)
           redirect_to proposal_path(@proposal)
         else
-          render new_proposal_path
           flash[:alert] = 'Please make sure string is correctly filled in'
+          render new_proposal_path
         end
       else
-        render new_proposal_path
         flash[:alert] = 'Please fill in all the fields'
+        render new_proposal_path
       end
     else
-      render new_proposal_path
       flash[:alert] = 'Please add a string'
+      render new_proposal_path
     end
   end
 
@@ -84,10 +85,11 @@ class ProposalsController < ApplicationController
       )
       redirect_to "#{full_url_for}.pdf"
     else
-      string_creation unless params["consumption_attributes"] == nil
+      unless params["consumption_attributes"] == nil
+        set_coordinates(@proposal)
+      end
       redirect_to proposal_path(@proposal)
     end
-
   end
 
 
@@ -96,6 +98,19 @@ class ProposalsController < ApplicationController
 
   def set_proposal
     @proposal = Proposal.find(params[:id])
+  end
+
+  def set_coordinates(proposal)
+    results = Geocoder.search("#{@proposal.shipping_address}, #{@proposal.postal_code}, #{@proposal.shipping_city}, #{@proposal.shipping_country}")
+    if results.empty?
+      flash[:alert] = 'Please make sure string is correctly filled in'
+      render new_proposal_path && return
+    else
+      @proposal.consumptions.each do |consumption|
+        consumption.lat = results.first.coordinates[0]
+        consumption.lon = results.first.coordinates[1]
+      end
+    end
   end
 
 
