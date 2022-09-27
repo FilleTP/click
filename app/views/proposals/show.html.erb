@@ -5,6 +5,7 @@
       <h2>Customer: <%= @proposal.customer.name %></h2>
     </div>
     <ul>
+      <%= link_to "Edit", edit_proposal_path(@proposal) %>
       <li>Date: <%= @proposal.date %></li>
       <li>Due Date: <%= @proposal.due_date %></li>
       <li>Quote Number: <%= @proposal.quote_num %></li>

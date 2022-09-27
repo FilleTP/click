@@ -31,14 +31,14 @@ class CustomersController < ApplicationController
   def update
     @customer = Customer.find(params[:id])
     @customer.update(customer_params)
-    update_customers(@customer, @customer.customer_id)
+    update_customers(@customer, @customer.holded_id)
     redirect_to customer_path(@customer)
   end
 
   def create
     @customer = Customer.new(customer_params)
     send_customers(@customer)
-    @customer.customer_id = @holded_id
+    @customer.holded_id = @holded_id
     if @customer.save
       redirect_to customer_path(@customer)
     else
@@ -49,7 +49,7 @@ class CustomersController < ApplicationController
   def destroy
     @customer = Customer.find(params[:id])
     @customer.destroy
-    delete_customer(@customer.customer_id)
+    delete_customer(@customer.holded_id)
     redirect_to customers_path
   end
 
@@ -57,7 +57,7 @@ class CustomersController < ApplicationController
 private
 
 def customer_params
-  params.require(:customer).permit(:name, :code, :email, :mobile, :phone, :customer_id)
+  params.require(:customer).permit(:name, :code, :email, :mobile, :phone, :holded_id)
 end
 
   def filter_proposal_amount(arg)
@@ -98,7 +98,7 @@ end
           email: customer["email"],
           mobile: customer["mobile"],
           phone: customer["phone"],
-          customer_id: customer["id"]
+          holded_id: customer["id"]
         )
         end
       end

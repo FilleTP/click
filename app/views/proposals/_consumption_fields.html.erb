@@ -1,10 +1,10 @@
 <div class="nested-fields pvgis-info">
-<%= f.input :lat, as: :text, label: 'Latitude', required:true %>
-<%= f.input :lon, as: :text, label: 'Longitude',required:true %>
-<%= f.input :angle, required:true %>
-<%= f.input :loss, required:true %>
-<%= f.input :slope, required:true %>
-<%= f.input :azimuth, required:true %>
-<%= f.input :peakpower, required:true %>
-<%= link_to_remove_association '-', f, html: { class: 'remove-pvgis' }%>
+  <%= f.input :lat, as: :text, label: 'Latitude', required:true %>
+  <%= f.input :lon, as: :text, label: 'Longitude',required:true %>
+  <%= f.input :angle, required:true %>
+  <%= f.input :loss, required:true %>
+  <%= f.input :slope, required:true %>
+  <%= f.input :azimuth, required:true %>
+  <%= f.input :peakpower, required:true, style: "position:relative;" %>
+  <%= link_to_remove_association 'x', f %>
 </div>
