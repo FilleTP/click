@@ -24,30 +24,29 @@ class ProposalsController < ApplicationController
 
   def create
     @proposal = Proposal.new proposal_params
-    @proposal.contact_name = @proposal.customer.name
     @proposal.date = Date.today
-    @proposal.save!
-
-    # if params[:proposal][:image].present?
-    #   params[:proposal][:image].each do |image|
-    #     @proposal.photos.attach(io: image, content_type: 'image/jpeg', filename: 'location.jpeg')
-    #   end
-    # end
-
-    string_creation
-
-    if @proposal.consumptions.count == @proposal.pvgis.count
-      send_propsals(@proposal)
-      redirect_to proposal_path(@proposal)
+    unless @proposal.consumptions.empty?
+      if @proposal.save
+        string_creation
+        if @proposal.consumptions.count == @proposal.pvgis.count
+          send_propsals(@proposal)
+          redirect_to proposal_path(@proposal)
+        else
+          render new_proposal_path
+          flash[:alert] = 'Please make sure string is correctly filled in'
+        end
+      else
+        render new_proposal_path
+        flash[:alert] = 'Please fill in all the fields'
+      end
     else
-      redirect_to new_proposal_path
-      flash[:alert] = 'Sorry'
+      render new_proposal_path
+      flash[:alert] = 'Please add a string'
     end
   end
 
   def show
     @proposal = Proposal.find(params[:id])
-
     @pvgis = @proposal.pvgis
     respond_to do |format|
       format.html
@@ -58,21 +57,33 @@ class ProposalsController < ApplicationController
 
   end
 
-  def update
-    image_64 = params[:proposal][:url]
-    string = image_64.split(",")[1]
+  def edit
     @proposal = Proposal.find(params[:id])
-    @proposal.graph_photo.destroy if @proposal.graph_photo.attached?
+  end
 
-    @proposal.graph_photo.attach(
-      {
-              io: StringIO.new(Base64.decode64(string)),
-              content_type: 'image/jpeg',
-              filename: 'image.jpeg'
-             }
-    )
+  def update
+    @proposal = Proposal.find(params[:id])
+    @proposal.update(proposal_params)
+    update_proposal(@proposal, @proposal.holded_id)
 
-    redirect_to "#{full_url_for}.pdf"
+    if params[:proposal][:url]
+      image_64 = params[:proposal][:url]
+      string = image_64.split(",")[1]
+      @proposal.graph_photo.destroy if @proposal.graph_photo.attached?
+
+      @proposal.graph_photo.attach(
+        {
+                io: StringIO.new(Base64.decode64(string)),
+                content_type: 'image/jpeg',
+                filename: 'image.jpeg'
+              }
+      )
+      redirect_to "#{full_url_for}.pdf"
+    else
+      string_creation unless params["consumption_attributes"] == nil
+      redirect_to proposal_path(@proposal)
+    end
+
   end
 
 
@@ -80,7 +91,7 @@ class ProposalsController < ApplicationController
   private
 
   def proposal_params
-    params.require(:proposal).permit(:name, :shipping_address, :postal_code, :shipping_city, :shipping_province, :shipping_country, :date, :due_date, :url, :customer_id,  :building_photo, consumptions_attributes: [:id, :lat, :lon, :angle, :loss, :slope, :azimuth, :peakpower, :_destroy])
+    params.require(:proposal).permit(:name, :shipping_address, :postal_code, :shipping_city, :shipping_province, :shipping_country, :date, :due_date, :customer_id,  :building_photo, consumptions_attributes: [:id, :lat, :lon, :angle, :loss, :slope, :azimuth, :peakpower, :_destroy])
   end
 
   # def pvgisdata_params
@@ -135,7 +146,26 @@ class ProposalsController < ApplicationController
     request.body = { dueDate: proposal.due_date.to_time.to_i, contactName: proposal.customer.name, date: Time.now.to_i, name: proposal.name}.to_json
 
     response = http.request(request)
-    proposal.update(quote_num: JSON.parse(response.read_body)["invoiceNum"])
+    parsed = JSON.parse(response.body)
+    proposal.update(quote_num: parsed["invoiceNum"], holded_id: parsed["id"])
+
+    # @holded_id = parsed["id"]
 
   end
+
+  def update_proposal(proposal, id)
+
+    url = URI("https://api.holded.com/api/invoicing/v1/documents/estimate/#{id}")
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+
+    request = Net::HTTP::Put.new(url)
+    request["accept"] = 'application/json'
+    request["content-type"] = 'application/json'
+    request["key"] = ENV["HOLDED_API"]
+    request.body = { dueDate: proposal.due_date.to_time.to_i, contactName: proposal.customer.name, date: Time.now.to_i, name: proposal.name}.to_json
+    response = http.request(request)
+  end
+
 end

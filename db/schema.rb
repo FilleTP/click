@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_15_133518) do
+ActiveRecord::Schema.define(version: 2022_09_26_100218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2022_09_15_133518) do
     t.string "email"
     t.string "mobile"
     t.string "phone"
-    t.string "customer_id"
+    t.string "holded_id"
     t.string "type"
     t.boolean "is_person"
     t.string "iban"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 2022_09_15_133518) do
     t.bigint "customer_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "holded_id"
     t.index ["customer_id"], name: "index_proposals_on_customer_id"
   end
 

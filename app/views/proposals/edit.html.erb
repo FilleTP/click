@@ -1,4 +1,4 @@
-<h3>Create a new Proposal</h3>
+<h3>Edit Proposal</h3>
 
 <div class="container">
   <%= simple_form_for @proposal, html: { class: "proposal-form" } do |f| %>
@@ -10,10 +10,6 @@
       <label>
         Due Date
         <%= f.input :due_date, required: true, label: false %>
-      </label>
-      <label>
-        Choose Customer
-        <%= f.association :customer, required: true, label: false, id: 'association'%>
       </label>
     </div>
     <div class="proposal-address">

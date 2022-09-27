@@ -94,12 +94,12 @@
   position: relative;
 }
 
-.pvgis-info a {
-  position: absolute;
-  right: 40px;
-  top: 20px;
-  text-decoration: none;
-}
+// .pvgis-info a {
+//   position: absolute;
+//   right: 40px;
+//   top: 20px;
+//   text-decoration: none;
+// }
 
 .proposal-address {
   display: flex;
@@ -190,5 +190,19 @@ ul {
 }
 
 a {
+  text-decoration: none;
+}
+
+.remove_fields {
+  position: absolute;
+  right: -26px;
+  top: 35px;
+  text-decoration: none;
+}
+
+.add_fields {
+  position: absolute;
+  right: 40px;
+  top: 20px;
   text-decoration: none;
 }
