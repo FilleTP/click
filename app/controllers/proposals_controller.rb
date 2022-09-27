@@ -3,6 +3,7 @@ require 'net/http'
 require 'openssl'
 
 class ProposalsController < ApplicationController
+  before_action :set_proposal, only: %i[show edit update destroy]
 
   def index
     @proposals = Proposal.all
@@ -45,8 +46,13 @@ class ProposalsController < ApplicationController
     end
   end
 
+  def destroy
+    @proposal.destroy
+    delete_proposal(@proposal.holded_id)
+    redirect_to proposals_path
+  end
+
   def show
-    @proposal = Proposal.find(params[:id])
     @pvgis = @proposal.pvgis
     respond_to do |format|
       format.html
@@ -58,11 +64,9 @@ class ProposalsController < ApplicationController
   end
 
   def edit
-    @proposal = Proposal.find(params[:id])
   end
 
   def update
-    @proposal = Proposal.find(params[:id])
     @proposal.update(proposal_params)
     update_proposal(@proposal, @proposal.holded_id)
 
@@ -89,6 +93,11 @@ class ProposalsController < ApplicationController
 
 
   private
+
+  def set_proposal
+    @proposal = Proposal.find(params[:id])
+  end
+
 
   def proposal_params
     params.require(:proposal).permit(:name, :shipping_address, :postal_code, :shipping_city, :shipping_province, :shipping_country, :date, :due_date, :customer_id,  :building_photo, consumptions_attributes: [:id, :lat, :lon, :angle, :loss, :slope, :azimuth, :peakpower, :_destroy])
@@ -154,7 +163,6 @@ class ProposalsController < ApplicationController
   end
 
   def update_proposal(proposal, id)
-
     url = URI("https://api.holded.com/api/invoicing/v1/documents/estimate/#{id}")
 
     http = Net::HTTP.new(url.host, url.port)
@@ -165,6 +173,20 @@ class ProposalsController < ApplicationController
     request["content-type"] = 'application/json'
     request["key"] = ENV["HOLDED_API"]
     request.body = { dueDate: proposal.due_date.to_time.to_i, contactName: proposal.customer.name, date: Time.now.to_i, name: proposal.name}.to_json
+
+    response = http.request(request)
+  end
+
+  def delete_proposal(id)
+    url = URI("https://api.holded.com/api/invoicing/v1/documents/estimate/#{id}")
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+
+    request = Net::HTTP::Delete.new(url)
+    request["Accept"] = 'application/json'
+    request["key"] = ENV["HOLDED_API"]
+
     response = http.request(request)
   end
 
