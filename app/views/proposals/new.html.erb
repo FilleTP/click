@@ -9,7 +9,7 @@
       </label>
       <label>
         Due Date
-        <%= f.input :due_date, required: true, label: false %>
+        <%= f.input :due_date, required: true, html5: true, label: false, input_html: { class: "datepicker" } %>
       </label>
       <label>
         Choose Customer
@@ -50,8 +50,8 @@
       <%# </span> %>
     </label>
     <div class="proposal-create-button">
-      <%= link_to 'Back', proposals_path, class: 'btn btn-back' %>
-      <%= f.button :submit, class: 'btn btn-flat', style: "height:auto;"%>
+      <%= link_to 'Back', proposals_path, class: 'btn-back' %>
+      <%= f.submit "Create", class: 'btn-flat', style: "height:auto;"%>
     </div>
     <% end %>
 </div>

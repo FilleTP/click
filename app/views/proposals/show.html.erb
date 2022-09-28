@@ -2,7 +2,7 @@
   <div style="display:flex;justify-content:space-between;">
     <div>
       <h1><%= @proposal.name %></h1>
-      <h2>Customer: <%= @proposal.customer.name %></h2>
+      <h3>Customer: <%= link_to @proposal.customer.name, customer_path(@proposal.customer) %></h3>
     </div>
     <ul>
       <%= link_to "Edit", edit_proposal_path(@proposal) %>
@@ -19,10 +19,9 @@
   <% if @proposal.building_photo.attached? %>
     <div style="margin-bottom:80px;margin-top:80px;display:flex;justify-content:space-between;">
       <div>
-        <p> <%= @proposal.shipping_address %></p>
-        <p> <%= @proposal.postal_code %></p>
-        <p> <%= @proposal.shipping_city %></p>
-        <p> <%= @proposal.shipping_country %></p>
+        <h4>Address:</h4>
+        <p> <%= @proposal.shipping_address %>, <%= @proposal.postal_code %> </p>
+        <p> <%= @proposal.shipping_city %>, <%= @proposal.shipping_country %></p>
         <p>Latitude: <%= @proposal.consumptions.first.lat %> Longitude: <%= @proposal.consumptions.first.lon %></p>
       </div>
       <div>
@@ -33,15 +32,15 @@
   <% end %>
   <canvas id="canvas" style="height:200px;width:300px;visibility:hidden;position:fixed;right:-999px;"></canvas>
   <div class="bottom-buttons">
-    <%= link_to "Home", proposals_path, class: "btn btn-back" %>
+    <%= link_to "Home", proposals_path, class: "btn-back" %>
     <div>
       <div id="update-form-div" style="display:none;">
         <%= simple_form_for @proposal  do |f| %>
           <%= f.hidden_field :url, as: :text %>
-          <%= f.submit "Go to PDF", class: 'btn btn-flat' %>
+          <%= f.submit "Go to PDF", class: 'btn-flat' %>
         <% end %>
       </div>
-      <a href="javascript:void(0)" id="loading-button" class="btn btn-flat">Loading...</a>
+      <a href="javascript:void(0)" id="loading-button" class="btn-flat">Loading...</a>
     </div>
   </div>
 

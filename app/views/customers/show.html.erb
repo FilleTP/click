@@ -1,11 +1,12 @@
-<ul>
-  <li><%= @customer.name %></li>
-  <li><%= @customer.code %></li>
-  <li><%= @customer.email %></li>
-  <li><%= @customer.mobile %></li>
-  <li><%= @customer.phone %></li>
-</ul>
-
-
-
-<%= link_to "Home", customers_path %>
+<div class="container">
+  <div style="display:flex;flex-direction:column;">
+    <ul>
+      <h1><%= @customer.name %></h1>
+      <li><%= @customer.code %></li>
+      <li><%= @customer.email %></li>
+      <li><%= @customer.mobile %></li>
+      <li><%= @customer.phone %></li>
+    </ul>
+      <%= link_to "Back to customers", customers_path, class: "btn-flat", style: "width:max-content" %>
+  </div>
+</div>

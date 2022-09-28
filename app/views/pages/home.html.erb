@@ -1,16 +1,28 @@
 <div class="container">
   <div class="last-proposals-container">
 
-    <h2 style="border-bottom: 1px solid blue;">Lasts Quotes</h2>
+    <h2 style="border-bottom: 1px solid blue;">Last Quotes</h2>
     <% @proposals.each do |proposal|%>
       <div class="last-proposals-div" data-behavior="clickable-div" data-url="<%= proposal_path(proposal) %>">
         <ul class="last-proposals">
           <li><%= proposal.customer.name %></li>
           <li><%= proposal.name %></li>
-          <li><%= proposal.date %></li>
-          <li><%= proposal.due_date %></li>
+          <li>Created: <%= proposal.date %></li>
+          <li>Due: <%= proposal.due_date %></li>
+          <li><%= proposal.quote_num %></li>
         </ul>
       </div>
     <% end %>
   </div>
 </div>
+
+
+<script>
+  function clickable(params) {
+    params.addEventListener('click', (event) => {
+    window.location = event.currentTarget.dataset.url;
+    });
+  }
+
+  document.querySelectorAll('[data-behavior=clickable-div]').forEach(clickable);
+</script>

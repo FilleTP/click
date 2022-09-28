@@ -39,15 +39,15 @@
       <% end %>
       <%= link_to_add_association 'Add String', f, :consumptions %>
     </div>
-    <label class="btn btn-flat">
+    <label class="btn-flat">
       Upload Location Image
       <span style="display:none;">
         <%= f.file_field :building_photo %>
       </span>
     </label>
     <div class="proposal-create-button">
-      <%= link_to 'Back', proposals_path, class: 'btn btn-back' %>
-      <%= f.button :submit, class: 'btn btn-flat', style: "height:auto;"%>
+      <%= link_to 'Back', proposals_path, class: 'btn-back' %>
+      <%= f.button :submit, class: 'btn-flat', style: "height:auto;"%>
     </div>
     <% end %>
 </div>

@@ -1,22 +1,31 @@
 <div class="navbar">
-  <div>
-    <%= link_to root_path do %>
-    <% image_tag "click_energy_logo.svg"%>
-    <% end %>
+  <div class="navbar-logo-search">
+    <div>
+      <%= link_to root_path do %>
+      <% image_tag "click_energy_logo.svg"%>
+      <% end %>
+    </div>
+    <div>
+      <%= form_tag proposals_path, method: :get, class:"search-bar" do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "maxi-form-control-home",
+          placeholder: "Search Proposal"
+        %>
+        <%= submit_tag "Search", class: "btn-flat" %>
+      <% end %>
+    </div>
   </div>
-  <div>
-    <%= form_tag proposals_path, method: :get, class:"search-bar" do %>
-      <%= text_field_tag :query,
-        params[:query],
-        class: "maxi-form-control-home",
-        placeholder: "Search Proposal"
-      %>
-      <%= submit_tag "Search", class: "btn-flat" %>
-    <% end %>
-  </div>
+
   <div class="links">
-    <%= link_to 'Customers', customers_path %>
-    <%= link_to 'Proposals', proposals_path %>
-    <%= link_to 'Create Proposal', new_proposal_path %>
+    <div class="nav-links-div">
+      <%= link_to 'Customers', customers_path %>
+    </div>
+    <div class="nav-links-div">
+      <%= link_to 'Proposals', proposals_path %>
+    </div>
+    <div class="nav-links-div">
+      <%= link_to 'Create Proposal', new_proposal_path %>
+    </div>
   </div>
 </div>
