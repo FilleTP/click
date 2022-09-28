@@ -28,17 +28,22 @@ class ProposalsController < ApplicationController
     @proposal.date = Date.today
     unless @proposal.consumptions.empty?
       set_coordinates(@proposal)
-      if @proposal.save
-        string_creation
-        if @proposal.consumptions.count == @proposal.pvgis.count
-          send_propsals(@proposal)
-          redirect_to proposal_path(@proposal)
+      if @proposal.consumptions.first.lat != nil
+        if @proposal.save
+          string_creation
+          if @proposal.consumptions.count == @proposal.pvgis.count
+            send_propsals(@proposal)
+            redirect_to proposal_path(@proposal)
+          else
+            flash[:alert] = 'Please make sure string is correctly filled in'
+            render new_proposal_path
+          end
         else
-          flash[:alert] = 'Please make sure string is correctly filled in'
+          flash[:alert] = 'Please fill in all the fields'
           render new_proposal_path
         end
       else
-        flash[:alert] = 'Please fill in all the fields'
+        flash[:alert] = 'Please make sure address is correct'
         render new_proposal_path
       end
     else
@@ -102,10 +107,7 @@ class ProposalsController < ApplicationController
 
   def set_coordinates(proposal)
     results = Geocoder.search("#{@proposal.shipping_address}, #{@proposal.postal_code}, #{@proposal.shipping_city}, #{@proposal.shipping_country}")
-    if results.empty?
-      flash[:alert] = 'Please make sure string is correctly filled in'
-      render new_proposal_path && return
-    else
+    unless results.empty?
       @proposal.consumptions.each do |consumption|
         consumption.lat = results.first.coordinates[0]
         consumption.lon = results.first.coordinates[1]

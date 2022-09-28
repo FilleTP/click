@@ -54,7 +54,6 @@
   border-radius: 8px;
   border: solid 1px rgba(34, 10, 122, 0.3);
   height: 24px;
-  margin-right: 40px;
 }
 
 .proposal-form textarea {
@@ -76,10 +75,10 @@
   margin-bottom: 50px;
 }
 
-.proposal-info input {
-  margin-right: 40px;
+// .proposal-info input {
 
-}
+
+// }
 
 #proposal_image {
   border: none;
@@ -88,6 +87,7 @@
 .pvgis-info {
   display: flex;
   margin-bottom: 20px;
+  justify-content: space-around;
 }
 
 .pvgis-info {
@@ -104,11 +104,12 @@
 .proposal-address {
   display: flex;
   margin-bottom: 20px;
+  justify-content: space-around;
 }
 
-.proposal-address input {
-  margin-right: 40px;
-}
+// .proposal-address input {
+//   margin-right: 40px;
+// }
 
 .proposal-create-button {
   display: flex;
